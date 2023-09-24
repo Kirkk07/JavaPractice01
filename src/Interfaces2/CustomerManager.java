@@ -1,14 +1,20 @@
 package Interfaces2;
 
-import PoymorphismDemo.DataBaseLogger;
-
 public class CustomerManager {
+    private Logger[] loggers;
+    public CustomerManager(Logger[] loggers) {
+        this.loggers = loggers;
+
+    }
+
     public void add(Customer customer){
-        System.out.println("Musteri eklendi"+ customer.getFirstName());
-        DatabaseLogger databaseLogger=new DatabaseLogger();
-        databaseLogger.log(customer.getFirstName()+" Veri tabanina Loglandi");
+        // loosley - tightly coupled
+        System.out.println("Musteri eklendi "+ customer.getFirstName());
+
+        Utils.runLoggers(loggers, customer.getFirstName());
     }
     public void delete(Customer customer){
-        System.out.println("Musteri silindi"+ customer.getFirstName());
+        System.out.println("Musteri silindi "+ customer.getFirstName());
+        Utils.runLoggers(loggers, customer.getLastName());
     }
 }
